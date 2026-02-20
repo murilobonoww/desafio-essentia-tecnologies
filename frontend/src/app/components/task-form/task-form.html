@@ -1,0 +1,4 @@
+<form (submit)="createTask(); $event.preventDefault()">
+  <input type="text" [(ngModel)]="title" name="title" placeholder="Nova tarefa" required />
+  <button type="submit">Adicionar</button>
+</form>

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { tap } from 'rxjs';
 
 export interface Task {
   id: number;
@@ -9,28 +9,42 @@ export interface Task {
   createdAt: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
-
+@Injectable({ providedIn: 'root' })
 export class TaskService {
   private API = 'http://localhost:3000/tasks';
 
+  private _tasks = signal<Task[]>([]);
+  readonly tasks = this._tasks.asReadonly();
+
   constructor(private http: HttpClient) {}
 
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.API);
+  loadTasks() {
+    this.http.get<Task[]>(this.API).subscribe(tasks => this._tasks.set(tasks));
   }
 
-  createTask(title: string): Observable<Task> {
-    return this.http.post<Task>(this.API, { title });
+  createTask(title: string) {
+    return this.http.post<Task>(this.API, { title }).pipe(tap(task => {
+      this._tasks.update(tasks => [...tasks, task]);
+    }));
   }
 
-  updateTask(id: number, task: Partial<Task>): Observable<Task> {
-    return this.http.put<Task>(`${this.API}/${id}`, task);
+  updateTask(id: number, task: Partial<Task>) {
+    return this.http.put<Task>(`${this.API}/${id}`, task).pipe(
+      tap(updated => {
+        this._tasks.update(tasks =>
+          tasks.map(t => t.id === id ? updated : t)
+        );
+      })
+    );
   }
 
-  deleteTask(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.API}/${id}`);
+  deleteTask(id: number) {
+    return this.http.delete<void>(`${this.API}/${id}`).pipe(
+      tap(() => {
+        this._tasks.update(tasks =>
+          tasks.filter(t => t.id !== id)
+        );
+      })
+    );
   }
 }
