@@ -1,7 +1,6 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, TaskService } from '../../services/task.service';
-import { TaskFormComponent } from '../task-form/task-form';
 import { TaskItemComponent } from '../task-item/task-item';
 import { signal } from '@angular/core';
 
@@ -10,7 +9,7 @@ import { signal } from '@angular/core';
   templateUrl: './task-list.html',
   styleUrls: ['./task-list.css'],
   standalone: true,
-  imports: [CommonModule, TaskFormComponent, TaskItemComponent]
+  imports: [CommonModule, TaskItemComponent]
 })
 export class TaskListComponent implements OnInit {
   private taskService = inject(TaskService);

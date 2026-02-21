@@ -1,0 +1,79 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.logo_navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: orange;
+    border-radius: 13px;
+}
+
+#nav_input_buscar_tarefas {
+
+    padding: 13px;
+    border: none;
+    border-radius: 7px;
+    background-color: #f3f4f6;
+    color: gray;
+}
+
+#nav_input_buscar_tarefas:focus {
+    outline: none;
+}
+
+#container_nav_input_buscar_tarefas {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f3f4f6;
+    border-radius: 7px;
+    padding-left: 14px;
+}
+
+#btn_nav_add_new_task {
+    color: white;
+    background: orange;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.modal_create_new_task {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    height: 700px;
+    width: 700px;
+
+    border-radius: 20px;
+    background-color: rgb(189, 189, 189);
+}
+
+#title_navbar{
+    margin: 0;
+}
+
+#subtitle_navbar {
+    margin: 0; color: gray; font-size: 14px;
+}

@@ -1,14 +1,7 @@
 <!-- task-list.html -->
 
 <ng-container *ngIf="showModalCreateTask()">
-<app-task-form (closeModal)="closeModal()"></app-task-form>
 </ng-container>
-
-<div class="container">
-
-  <!-- <div class="sidebar">
-    <button (click)="open_modal_create_task()">Adicionar tarefa</button>
-  </div> -->
 
   <div class="task-list">
     <app-task-item *ngFor="let task of tasks(); trackBy: trackById" [task]="task">
@@ -18,4 +11,3 @@
   <ng-container *ngIf="tasks().length === 0">
     <p>Nenhuma tarefa ainda. Adicione uma!</p>
   </ng-container>
-</div>

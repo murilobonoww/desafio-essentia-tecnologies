@@ -1,1 +1,25 @@
-<p>navbar works!</p>
+<nav>
+    <div class="logo_navbar">
+        <lucide-icon [img]="ListChecks"></lucide-icon>
+    </div>
+
+    <div>
+        <h1 id="title_navbar">TaskMaster</h1>
+        <p id="subtitle_navbar">Gerencie suas tarefas com maestria</p>
+    </div>
+
+    <div id="container_nav_input_buscar_tarefas">
+        <lucide-icon [img]="Search" color="gray"></lucide-icon>
+        <input type="text" placeholder="Buscar tarefas..." id="nav_input_buscar_tarefas" />
+    </div>
+
+    <button id="btn_nav_add_new_task" (click)="createTask()">+ Nova tarefa</button>
+
+    <div *ngIf="showCreateTaskModal();" class="modal_create_new_task">
+        <h1>Nova tarefa</h1>
+        <button (click)="closeCreateTaskModal()">Cancelar</button>
+        <label for="title">Título</label>
+        <input type="text" id="title" [(ngModel)]="newTaskTitle" placeholder="Ex: Finalizar relatório trimestral" />
+        <button (click)="CreateTask()">Criar</button>
+    </div>
+</nav>
