@@ -24,11 +24,26 @@ export const getTasks = async (_req: Request, res: Response) => {
 
 export const updateTask = async (req: Request, res: Response) => {
   const id = Number(req.params.id)
-  const { title, completed, due_date } = req.body
+
+  const data: any = {}
+
+  if (req.body.title !== undefined) {
+    data.title = req.body.title
+  }
+
+  if (req.body.completed !== undefined) {
+    data.completed = req.body.completed
+  }
+
+  if (req.body.due_date !== undefined) {
+    data.due_date = req.body.due_date
+      ? new Date(req.body.due_date)
+      : null
+  }
 
   const task = await prisma.task.update({
     where: { id },
-    data: { title, completed, due_date: due_date ? new Date(due_date) : null }
+    data
   })
 
   res.json(task)
