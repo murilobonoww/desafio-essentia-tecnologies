@@ -2,10 +2,13 @@ import type { Request, Response } from 'express'
 import { prisma } from '../prisma/client';
 
 export const createTask = async (req: Request, res: Response) => {
-  const { title } = req.body
+  const { title, due_date } = req.body
 
   const task = await prisma.task.create({
-    data: { title }
+    data: {
+      title,
+      due_date: due_date ? new Date(due_date) : null
+    }
   })
 
   res.status(201).json(task)
@@ -21,11 +24,11 @@ export const getTasks = async (_req: Request, res: Response) => {
 
 export const updateTask = async (req: Request, res: Response) => {
   const id = Number(req.params.id)
-  const { title, completed } = req.body
+  const { title, completed, due_date } = req.body
 
   const task = await prisma.task.update({
     where: { id },
-    data: { title, completed }
+    data: { title, completed, due_date: due_date ? new Date(due_date) : null }
   })
 
   res.json(task)
