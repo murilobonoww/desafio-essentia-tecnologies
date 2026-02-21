@@ -1,7 +1,7 @@
 <div class="task_item">
   <input type="checkbox" [checked]="task.completed" (change)="toggleCompleted()" />
   <span [class.completed]="task.completed">{{ task.title }}</span>
-  <span>{{task.createdAt | date:'dd/MM/yyyy HH:mm'}}</span>
+  <span>{{task.due_date | date:'dd/MM/yyyy HH:mm'}}</span>
   <button (click)="openEdit()">✏️</button>
   <button (click)="deleteTask()">🗑️</button>
 </div>

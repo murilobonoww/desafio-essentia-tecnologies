@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, TaskService } from '../../services/task.service';
 import { TaskFormComponent } from '../task-form/task-form';
@@ -15,14 +15,21 @@ import { signal } from '@angular/core';
 export class TaskListComponent implements OnInit {
   private taskService = inject(TaskService);
   tasks = this.taskService.tasks;
-
-  // constructor(private taskService: TaskService) { }
+  showModalCreateTask = signal(false);
 
   ngOnInit(): void {
     this.taskService.loadTasks();
   }
 
   trackById(index: number, task: Task) {
-  return task.id;
-}
+    return task.id;
+  }
+
+  open_modal_create_task() {
+    this.showModalCreateTask.set(true)
+  }
+
+  closeModal() {
+    this.showModalCreateTask.set(false);
+  }
 }

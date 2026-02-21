@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class TaskFormComponent {
   title: string = '';
   @Output() taskCreated = new EventEmitter<void>();
+  @Output() closeModal = new EventEmitter<void>();
 
   constructor(private taskService: TaskService) {}
 
@@ -27,5 +28,9 @@ export class TaskFormComponent {
       },
       error: (err) => console.error('Erro ao criar tarefa: ', err)
     });
+  }
+
+  cancelCreateTask() {
+    this.closeModal.emit();
   }
 }

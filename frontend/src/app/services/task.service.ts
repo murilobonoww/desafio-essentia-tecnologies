@@ -5,8 +5,10 @@ import { tap } from 'rxjs';
 export interface Task {
   id: number;
   title: string;
+  description: string | null;
   completed: boolean;
   createdAt: string;
+  due_date: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
