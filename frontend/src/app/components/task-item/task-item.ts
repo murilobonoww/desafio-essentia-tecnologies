@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { Task, TaskService } from '../../services/task.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -18,6 +18,9 @@ export class TaskItemComponent {
 
   constructor(private taskService: TaskService) {}
 
+  isEditing = signal(false);
+  input_title_value: string  = '';
+
   toggleCompleted() {
     this.taskService.updateTask(this.task.id, { completed: !this.task.completed }).subscribe({
       next: () => this.taskUpdated.emit(),
@@ -32,7 +35,22 @@ export class TaskItemComponent {
     });
   }
 
+  openEdit() {
+    this.isEditing.set(true);
+    this.input_title_value = this.task.title;
+  }
+
+  cancellEditTask() {
+    this.isEditing.set(false);
+  }
+
   editTask() {
-    this.taskService.updateTask(this.task.id, { title: this.task.title });
+    this.taskService.updateTask(this.task.id, { title: this.input_title_value }).subscribe({
+      next: () => {
+        this.taskUpdated.emit();
+        this.isEditing.set(false);
+      },
+      error: (err) => console.error('Erro ao atualizar tarefa', err)
+    })
   }
 }
