@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task, TaskService } from '../../services/task.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-task-item',
@@ -8,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./task-item.css'],
 
   standalone: true,
-  imports: [FormsModule]
+  imports: [FormsModule, CommonModule]
 })
 export class TaskItemComponent {
   @Input() task!: Task;
@@ -29,5 +30,9 @@ export class TaskItemComponent {
       next: () => this.taskDeleted.emit(),
       error: (err) => console.error('Erro ao deletar tarefa', err)
     });
+  }
+
+  editTask() {
+    this.taskService.updateTask(this.task.id, { title: this.task.title });
   }
 }
