@@ -31,3 +31,29 @@
   color: #2a883b;
   border: 1px solid #2a883b;
 }
+
+.task_priority {
+  padding: 8px 15px;
+  border-radius: 10px;
+  background-color: #dbdde0;
+  color: #3c445d;
+  border: 1px solid #3c445d;
+}
+
+.task_priority.media {
+  background-color: #fef9c2;
+  color: #b47a51;
+  border: 1px solid #ffe024;
+}
+
+.task_priority.importante {
+  background-color: #ffedd4;
+  color: #cf5559;
+  border: 1px solid #ffb96c;
+}
+
+.task_priority.urgente {
+  background-color: #ffe2e2;
+  color: #c3120e;
+  border: 1px solid #ffa3a3;
+}

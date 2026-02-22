@@ -2,6 +2,7 @@
   <input type="checkbox" [checked]="task.completed" [checked]="isCompleted" (change)="toggleCompleted()" />
   <span [class.completed]="task.completed">{{ task.title }}</span>
   <span>{{task.due_date | date:'dd/MM/yyyy HH:mm'}}</span>
+  <span *ngIf="task.priority" class="task_priority {{ task.priority }}">{{task.priority}}</span>
   <span *ngIf="!isCompleted" class="task_tag">pendente</span>
   <span *ngIf="isCompleted" class="task_tag taskCompleted">concluída</span>
   <button (click)="openEdit()">✏️</button>

@@ -9,6 +9,7 @@ export interface Task {
   completed: boolean;
   createdAt: string;
   due_date: string | null;
+  priority: string | null;
 }
 
 @Injectable({ providedIn: 'root' })
