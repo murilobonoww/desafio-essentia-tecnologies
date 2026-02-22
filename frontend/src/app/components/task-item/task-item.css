@@ -5,11 +5,17 @@
 
 .task_item {
   display: flex;
+  align-items: center;
   gap: 10px;
   width: fit-content;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #dddddd;
+  background-color: white;
+}
 
-  border-radius: 7px;
+.task_item.taskCompleted {
+  border: 2px solid #80df91;
 }
 
 .task_tag {
@@ -20,7 +26,7 @@
   border: 1px solid #3c445d;
 }
 
-.task_tag.completed {
+.task_tag.taskCompleted {
   background-color: #c7f8d9;
   color: #2a883b;
   border: 1px solid #2a883b;

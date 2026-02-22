@@ -5,7 +5,19 @@
 <div class="task-list">
   <h1>Minhas tarefas</h1>
   <p>{{ tasks().length }} tarefas</p>
-  <p>{{ pendingTasks() }} tarefas pendentes</p>
+
+  <div style="display: flex; gap: 15px;">
+  <div class="statistics_card">
+    <p style="color: gray; margin: 0;">Pendentes</p>
+    <p style="font-size: 32px; color: gray; margin: 0;">{{ pendingTasks() }}</p>
+  </div>
+
+  <div class="statistics_card">
+    <p style="color: gray; margin: 0;">Concluídas</p>
+    <p style="font-size: 32px; color: gray; margin: 0;">{{ completedTasks() }}</p>
+  </div>
+  </div>
+
   <p>{{ completedTasks() }} tarefas concluídas</p>
   <app-task-item *ngFor="let task of tasks(); trackBy: trackById" [task]="task">
   </app-task-item>

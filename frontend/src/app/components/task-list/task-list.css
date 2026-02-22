@@ -23,3 +23,13 @@
     background-color: #f0edeb;
     gap: 10px;
 }
+
+.statistics_card{
+    width: 250px;
+    padding: 10px 30px;
+
+
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+}

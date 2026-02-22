@@ -1,13 +1,12 @@
-<div class="task_item">
+<div class="task_item {{ task.completed ? 'taskCompleted' : '' }}">
   <input type="checkbox" [checked]="task.completed" [checked]="isCompleted" (change)="toggleCompleted()" />
   <span [class.completed]="task.completed">{{ task.title }}</span>
   <span>{{task.due_date | date:'dd/MM/yyyy HH:mm'}}</span>
   <span *ngIf="!isCompleted" class="task_tag">pendente</span>
-  <span *ngIf="isCompleted" class="task_tag completed">concluída</span>
+  <span *ngIf="isCompleted" class="task_tag taskCompleted">concluída</span>
   <button (click)="openEdit()">✏️</button>
   <button (click)="deleteTask()">🗑️</button>
 </div>
-
 
 <div class="editing_task_modal" *ngIf="isEditing()">
   <input type="text" [(ngModel)]="input_title_value" />
