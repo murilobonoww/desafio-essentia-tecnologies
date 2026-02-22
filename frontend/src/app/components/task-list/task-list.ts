@@ -17,11 +17,10 @@ export class TaskListComponent implements OnInit {
   tasks = this.taskService.tasks;
   showModalCreateTask = signal(false);
   pendingTasks = computed(() => this.tasks().filter(t => !t.completed).length);
+  completedTasks = computed(() => this.tasks().filter(t => t.completed).length);
 
   ngOnInit(): void {
     this.taskService.loadTasks();
-
-    
   }
 
   trackById(index: number, task: Task) {
