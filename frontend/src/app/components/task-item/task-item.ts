@@ -21,6 +21,10 @@ export class TaskItemComponent {
   isEditing = signal(false);
   input_title_value: string  = '';
 
+  get isCompleted(): boolean {
+  return this.task ? this.task.completed : false;
+}
+
   toggleCompleted() {
     this.taskService.updateTask(this.task.id, { completed: !this.task.completed }).subscribe({
       next: () => this.taskUpdated.emit(),

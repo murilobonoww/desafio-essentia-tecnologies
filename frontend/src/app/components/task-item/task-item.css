@@ -9,6 +9,19 @@
   width: fit-content;
   padding: 5px;
 
-  background-color: rgb(223, 223, 223);
   border-radius: 7px;
+}
+
+.task_tag {
+  padding: 8px 15px;
+  border-radius: 10px;
+  background-color: #dbdde0;
+  color: #3c445d;
+  border: 1px solid #3c445d;
+}
+
+.task_tag.completed {
+  background-color: #c7f8d9;
+  color: #2a883b;
+  border: 1px solid #2a883b;
 }
