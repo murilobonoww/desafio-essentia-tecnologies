@@ -5,6 +5,7 @@
 <div class="task-list">
   <h1>Minhas tarefas</h1>
   <p>{{ tasks().length }} tarefas</p>
+  <p>{{ pendingTasks() }} tarefas pendentes</p>
   <app-task-item *ngFor="let task of tasks(); trackBy: trackById" [task]="task">
   </app-task-item>
 </div>
