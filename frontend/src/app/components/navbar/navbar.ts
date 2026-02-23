@@ -37,7 +37,7 @@ export class NavbarComponent {
   }
   constructor(private taskService: TaskService) { }
 
-  createTask() {
+  openCreateTaskModal() {
     this.showCreateTaskModal.set(true);
   }
 

@@ -13,7 +13,7 @@
         <input type="text" placeholder="Buscar tarefas..." id="nav_input_buscar_tarefas" />
     </div>
 
-    <button id="btn_nav_add_new_task" (click)="createTask()">+ Nova tarefa</button>
+    <button id="btn_nav_add_new_task" (click)="openCreateTaskModal()">+ Nova tarefa</button>
 
     <div *ngIf="showCreateTaskModal();" class="bg_modal_create_task"></div>
 
@@ -27,58 +27,63 @@
                     <lucide-icon [img]="X" color="gray"></lucide-icon>
                 </button>
             </div>
-
         </div>
-        <label for="title">Título</label>
-        <input type="text" id="title" [(ngModel)]="newTaskTitle" placeholder="Ex: Finalizar relatório trimestral" />
 
-        <label for="description">Descrição</label>
-        <input type="text" id="description" [(ngModel)]="newTaskDescription"
-            placeholder="Ex: Finalizar relatório trimestral" />
-        <p>Prioridade</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 90%; margin-top: 20px;">
+            <label for="title">Título *</label>
+            <input type="text" id="title" [(ngModel)]="newTaskTitle" placeholder="Ex: Finalizar relatório trimestral" />
 
-        <div class="select">
-            <div class="selected" data-default="Nenhuma" data-one="Baixa" data-two="Média" data-three="Alta"
-                data-four="Urgente">
-                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
-                    <path
-                        d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z">
-                    </path>
-                </svg>
+            <label for="description">Descrição</label>
+            <input type="text" id="description" [(ngModel)]="newTaskDescription"
+                placeholder="Ex: Finalizar relatório trimestral" />
+
+            <div class="input-box">
+                <label>Data de vencimento</label>
+                <input type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" [(ngModel)]="DueDate"
+                    (input)="onDateInput()" />
             </div>
-            <div class="options">
-                <div title="all">
-                    <input id="all" name="option" type="radio" value="nenhuma" [(ngModel)]="priority" checked="" />
-                    <label class="option" for="all" data-txt="Nenhuma"></label>
+
+            <p>Prioridade</p>
+
+            <div class="select">
+                <div class="selected" data-default="Nenhuma" data-one="Baixa" data-two="Média" data-three="Alta"
+                    data-four="Urgente">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+                        <path
+                            d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z">
+                        </path>
+                    </svg>
                 </div>
-                <div title="option-1">
-                    <input id="option-1" name="option" type="radio" value="baixa" [(ngModel)]="priority" />
-                    <label class="option" for="option-1" data-txt="Baixa"></label>
-                </div>
-                <div title="option-2">
-                    <input id="option-2" name="option" type="radio" value="media" [(ngModel)]="priority" />
-                    <label class="option" for="option-2" data-txt="Média"></label>
-                </div>
-                <div title="option-3">
-                    <input id="option-3" name="option" type="radio" value="alta" [(ngModel)]="priority" />
-                    <label class="option" for="option-3" data-txt="Alta"></label>
-                </div>
-                <div title="option-4">
-                    <input id="option-4" name="option" type="radio" value="urgente" [(ngModel)]="priority" />
-                    <label class="option" for="option-4" data-txt="Urgente"></label>
+                <div class="options">
+                    <div title="all">
+                        <input id="all" name="option" type="radio" value="nenhuma" [(ngModel)]="priority" checked="" />
+                        <label class="option" for="all" data-txt="Nenhuma"></label>
+                    </div>
+                    <div title="option-1">
+                        <input id="option-1" name="option" type="radio" value="baixa" [(ngModel)]="priority" />
+                        <label class="option" for="option-1" data-txt="Baixa"></label>
+                    </div>
+                    <div title="option-2">
+                        <input id="option-2" name="option" type="radio" value="media" [(ngModel)]="priority" />
+                        <label class="option" for="option-2" data-txt="Média"></label>
+                    </div>
+                    <div title="option-3">
+                        <input id="option-3" name="option" type="radio" value="alta" [(ngModel)]="priority" />
+                        <label class="option" for="option-3" data-txt="Alta"></label>
+                    </div>
+                    <div title="option-4">
+                        <input id="option-4" name="option" type="radio" value="urgente" [(ngModel)]="priority" />
+                        <label class="option" for="option-4" data-txt="Urgente"></label>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="input-box">
-            <label>Due Date</label>
-            <input type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" [(ngModel)]="DueDate"
-                (input)="onDateInput()" />
-        </div>
 
-        <div style="display: flex;">
-            <button (click)="closeCreateTaskModal()">Cancelar</button>
-            <button (click)="CreateTask()">Criar Tarefa</button>
-        </div>''
+
+            <div class="create_task_and_cancel_button_container" style="display: flex; gap: 10px;">
+                <button (click)="closeCreateTaskModal()">Cancelar</button>
+                <button (click)="CreateTask()">Criar Tarefa</button>
+            </div>
+        </div>
     </div>
 </nav>

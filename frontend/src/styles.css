@@ -1,3 +1,13 @@
 * {
     font-family: sans-serif;
 }
+
+*::first-letter {
+  text-transform: uppercase;
+}
+
+button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}

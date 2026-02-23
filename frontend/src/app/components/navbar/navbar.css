@@ -1,101 +1,127 @@
 nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0.3rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-    color: black;
-    background-color: white;
-    border-bottom: 1px solid rgb(224, 224, 224);
+  color: black;
+  background-color: white;
+  border-bottom: 1px solid rgb(224, 224, 224);
 }
 
 .logo_navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: orange;
-    border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: orange;
+  border-radius: 13px;
 }
 
 #nav_input_buscar_tarefas {
 
-    padding: 13px;
-    border: none;
-    border-radius: 7px;
-    background-color: #f3f4f6;
-    color: gray;
+  padding: 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: #f3f4f6;
+  color: gray;
 }
 
 #nav_input_buscar_tarefas:focus {
-    outline: none;
+  outline: none;
 }
 
 #container_nav_input_buscar_tarefas {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #f3f4f6;
-    border-radius: 7px;
-    padding-left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f3f4f6;
+  border-radius: 7px;
+  padding-left: 14px;
 }
 
 #btn_nav_add_new_task {
-    color: white;
-    background: orange;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 7px;
-    cursor: pointer;
+  color: white;
+  background: orange;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
 }
 
 .modal_create_new_task {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    height: 700px;
-    width: 700px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  height: fit-content;
+  width: 700px;
+  padding-bottom: 30px;
 
-    border-radius: 20px;
-    background-color: white;
+  border-radius: 20px;
+  background-color: white;
 }
 
-#title_navbar{
-    margin: 0;
+#title_navbar {
+  margin: 0;
 }
 
 #subtitle_navbar {
-    margin: 0; color: gray; font-size: 14px;
+  margin: 0;
+  color: gray;
+  font-size: 14px;
 }
 
 .bg_modal_create_task {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9998;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+#title {
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  background-color: #f3f4f6;
+  color: gray;
+}
+
+#description {
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  background-color: #f3f4f6;
+  color: gray;
+}
+
+.create_task_and_cancel_button_container button{
+  padding: 15px 65px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  background-color: orange;
+  color: white;
+  font-size: 20px;
+  width: 50%;
 }
 
 
 
-
-
-
-
-/* From Uiverse.io by 3bdel3ziz-T */ 
+/* From Uiverse.io by 3bdel3ziz-T */
 .select {
   width: fit-content;
   cursor: pointer;
@@ -103,6 +129,21 @@ nav {
   transition: 300ms;
   color: white;
   overflow: hidden;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-box input {
+  width: 120px;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  background-color: #f3f4f6;
+  color: gray;
 }
 
 .selected {
@@ -141,12 +182,12 @@ nav {
   transition: 300ms;
 }
 
-.select:hover > .options {
+.select:hover>.options {
   opacity: 1;
   top: 0;
 }
 
-.select:hover > .selected .arrow {
+.select:hover>.selected .arrow {
   transform: rotate(0deg);
 }
 
@@ -158,6 +199,7 @@ nav {
   width: 150px;
   font-size: 15px;
 }
+
 .option:hover {
   background-color: #323741;
 }
@@ -169,30 +211,35 @@ nav {
 .options label {
   display: inline-block;
 }
+
 .options label::before {
   content: attr(data-txt);
 }
 
-.options input[type="radio"]:checked + label {
+.options input[type="radio"]:checked+label {
   display: none;
 }
 
-.options input[type="radio"]#all:checked + label {
+.options input[type="radio"]#all:checked+label {
   display: none;
 }
 
 .select:has(.options input[type="radio"]#all:checked) .selected::before {
   content: attr(data-default);
 }
+
 .select:has(.options input[type="radio"]#option-1:checked) .selected::before {
   content: attr(data-one);
 }
+
 .select:has(.options input[type="radio"]#option-2:checked) .selected::before {
   content: attr(data-two);
 }
+
 .select:has(.options input[type="radio"]#option-3:checked) .selected::before {
   content: attr(data-three);
 }
+
 .select:has(.options input[type="radio"]#option-4:checked) .selected::before {
   content: attr(data-four);
 }

@@ -1,20 +1,106 @@
 <div class="task_item {{ task.completed ? 'taskCompleted' : '' }}">
- <app-checkbox-splash
-  [checked]="task.completed"
-  (checkedChange)="toggleCompleted()"
-></app-checkbox-splash>
-  <span [class.completed]="task.completed">{{ task.title }}</span>
-  <span class="task_description">{{ task.description }}</span>
-  <span>{{task.due_date | date:'dd/MM/yyyy':'UTC'}}</span>
-  <span *ngIf="task.priority" class="task_priority {{ task.priority }}">{{task.priority}}</span>
-  <span *ngIf="!isCompleted" class="task_tag">pendente</span>
-  <span *ngIf="isCompleted" class="task_tag taskCompleted">concluída</span>
-  <button (click)="openEdit()">✏️</button>
-  <button (click)="deleteTask()">🗑️</button>
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div style="display: flex; align-items: start; gap: 10px;">
+      <app-checkbox-splash [checked]="task.completed" (checkedChange)="toggleCompleted()"></app-checkbox-splash>
+      <div style="display: flex; flex-direction: column;">
+        <span class="task_item_title" [class.completed]="task.completed">{{ task.title }}</span>
+        <span class="task_description">{{ task.description }}</span>
+      </div>
+    </div>
+
+    <button (click)="openOptions()">
+      <lucide-icon style="color: #888;" [img]="EllipsisVertical"></lucide-icon>
+    </button>
+
+  </div>
+  <div style="display: flex; justify-content: space-between; width: 100%;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span *ngIf="task.priority !== 'nenhuma'" class="task_priority {{ task.priority }}">{{task.priority}}</span>
+      <span *ngIf="!isCompleted" class="task_tag">pendente</span>
+      <span *ngIf="isCompleted" class="task_tag taskCompleted">concluída</span>
+    </div>
+
+    <div *ngIf="showOptions()"
+      style="display: flex; gap: 5px; border: 1px solid #ccc; padding: 5px; border-radius: 5px;">
+      <button (click)="openEdit()">✏️</button>
+      <button (click)="deleteTask()">🗑️</button>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 5px;" *ngIf="task.due_date">
+    <lucide-icon style="color: #888;" [img]="Calendar"></lucide-icon>
+    <span class="task_due_date"> {{ task.due_date | date:'dd \'de\' MMMM':'UTC':'pt-BR' }} </span>
+  </div>
+
 </div>
 
-<div class="editing_task_modal" *ngIf="isEditing()">
-  <input type="text" [(ngModel)]="input_title_value" />
-  <button (click)="editTask()">Salvar</button>
-  <button (click)="cancellEditTask()">Cancelar</button>
-</div>
+  <div *ngIf="isEditing()" class="bg_modal_edit_task"></div>
+
+  <div *ngIf="isEditing();" class="modal_edit_task" style="justify-content:start; padding-top: 10px;">
+    <div style="display: flex; width: 100%;">
+      <div
+        style="display: flex; align-items: center; width: 100%; padding-left: 30px; padding-right: 20px; border-bottom: 1px solid #ccc;">
+        <h1>Editar tarefa</h1>
+        <button (click)="cancellEditTask()"
+          style="background-color: transparent; border: none; margin-left: auto; cursor: pointer;">
+          <lucide-icon [img]="X" color="gray"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px; width: 90%; margin-top: 20px;">
+      <label for="title">Título *</label>
+      <input type="text" id="title" [(ngModel)]="input_title_value" placeholder="Ex: Finalizar relatório trimestral" />
+
+      <label for="description">Descrição</label>
+      <input type="text" id="description" [(ngModel)]="input_description_value"
+        placeholder="Ex: Finalizar relatório trimestral" />
+
+      <div class="input-box">
+        <label>Data de vencimento</label>
+        <input type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" [(ngModel)]="DueDate"
+          (input)="onDateInput()" />
+      </div>
+
+      <p>Prioridade</p>
+
+      <div class="select">
+        <div class="selected" data-default="Nenhuma" data-one="Baixa" data-two="Média" data-three="Alta"
+          data-four="Urgente">
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" class="arrow">
+            <path
+              d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z">
+            </path>
+          </svg>
+        </div>
+        <div class="options">
+          <div title="all">
+            <input id="all" name="option" type="radio" value="nenhuma" [(ngModel)]="priority" checked="" />
+            <label class="option" for="all" data-txt="Nenhuma"></label>
+          </div>
+          <div title="option-1">
+            <input id="option-1" name="option" type="radio" value="baixa" [(ngModel)]="priority" />
+            <label class="option" for="option-1" data-txt="Baixa"></label>
+          </div>
+          <div title="option-2">
+            <input id="option-2" name="option" type="radio" value="media" [(ngModel)]="priority" />
+            <label class="option" for="option-2" data-txt="Média"></label>
+          </div>
+          <div title="option-3">
+            <input id="option-3" name="option" type="radio" value="alta" [(ngModel)]="priority" />
+            <label class="option" for="option-3" data-txt="Alta"></label>
+          </div>
+          <div title="option-4">
+            <input id="option-4" name="option" type="radio" value="urgente" [(ngModel)]="priority" />
+            <label class="option" for="option-4" data-txt="Urgente"></label>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="create_task_and_cancel_button_container" style="display: flex; gap: 10px;">
+        <button (click)="cancellEditTask()">Cancelar</button>
+        <button (click)="editTask()">Editar Tarefa</button>
+      </div>
+    </div>
+  </div>
