@@ -57,6 +57,7 @@ nav {
 .modal_create_new_task {
     position: fixed;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     top: 50%;
@@ -67,7 +68,7 @@ nav {
     width: 700px;
 
     border-radius: 20px;
-    background-color: rgb(189, 189, 189);
+    background-color: white;
 }
 
 #title_navbar{
@@ -76,4 +77,14 @@ nav {
 
 #subtitle_navbar {
     margin: 0; color: gray; font-size: 14px;
+}
+
+.bg_modal_create_task {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
 }

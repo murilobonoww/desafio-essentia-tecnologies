@@ -15,11 +15,29 @@
 
     <button id="btn_nav_add_new_task" (click)="createTask()">+ Nova tarefa</button>
 
-    <div *ngIf="showCreateTaskModal();" class="modal_create_new_task">
-        <h1>Nova tarefa</h1>
-        <button (click)="closeCreateTaskModal()">Cancelar</button>
+    <div *ngIf="showCreateTaskModal();" class="bg_modal_create_task"></div>
+
+    <div *ngIf="showCreateTaskModal();" class="modal_create_new_task" style="justify-content:start; padding-top: 10px;">
+        <div style="display: flex; width: 100%;">
+            <div
+                style="display: flex; align-items: center; width: 100%; padding-left: 30px; padding-right: 20px; border-bottom: 1px solid #ccc;">
+                <h1>Nova tarefa</h1>
+                <button (click)="closeCreateTaskModal()"
+                    style="background-color: transparent; border: none; margin-left: auto; cursor: pointer;">
+                    <lucide-icon [img]="X" color="gray"></lucide-icon>
+                </button>
+            </div>
+
+        </div>
         <label for="title">Título</label>
         <input type="text" id="title" [(ngModel)]="newTaskTitle" placeholder="Ex: Finalizar relatório trimestral" />
-        <button (click)="CreateTask()">Criar</button>
+
+         <label for="description">Descrição</label>
+        <input type="text" id="description" [(ngModel)]="newTaskDescription" placeholder="Ex: Finalizar relatório trimestral" />
+
+        <div style="display: flex;">
+            <button (click)="closeCreateTaskModal()">Cancelar</button>
+            <button (click)="CreateTask()">Criar Tarefa</button>
+        </div>
     </div>
 </nav>

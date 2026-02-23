@@ -7,11 +7,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  width: fit-content;
+  width: 60vw;
   padding: 10px;
   border-radius: 10px;
   border: 2px solid #dddddd;
   background-color: white;
+  cursor: pointer;
 }
 
 .task_item.taskCompleted {

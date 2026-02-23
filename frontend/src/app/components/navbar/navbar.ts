@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, ListChecks, Search, Signal } from "lucide-angular";
+import { LucideAngularModule, ListChecks, Search, X } from "lucide-angular";
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -15,8 +15,10 @@ import { TaskService } from '../../services/task.service';
 export class NavbarComponent {
   readonly ListChecks = ListChecks;
   readonly Search = Search;
+  readonly X = X;
   showCreateTaskModal = signal(false);
   newTaskTitle: string = '';
+  newTaskDescription: string = '';
    constructor(private taskService: TaskService) {}
 
   createTask() {
@@ -28,9 +30,10 @@ export class NavbarComponent {
   }
 
   CreateTask() {
-    this.taskService.createTask(this.newTaskTitle).subscribe({
+    this.taskService.createTask(this.newTaskTitle, this.newTaskDescription).subscribe({
       next: () => {
         this.newTaskTitle = '';
+        this.newTaskDescription = '';
         this.showCreateTaskModal.set(false);
       },
       error: (err) => console.error('Erro ao criar tarefa: ', err)
