@@ -72,10 +72,16 @@
             </div>
         </div>
 
+        <div class="input-box">
+            <label>Due Date</label>
+            <input type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" [(ngModel)]="DueDate"
+                (input)="onDateInput()" />
+        </div>
+
 
         <div style="display: flex;">
             <button (click)="closeCreateTaskModal()">Cancelar</button>
             <button (click)="CreateTask()">Criar Tarefa</button>
-        </div>
+        </div>''
     </div>
 </nav>

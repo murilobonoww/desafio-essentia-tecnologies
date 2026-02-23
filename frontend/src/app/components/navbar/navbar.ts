@@ -20,6 +20,21 @@ export class NavbarComponent {
   newTaskTitle: string = '';
   newTaskDescription: string = '';
   priority: string = 'nenhuma';
+  DueDate: string = '';
+
+  onDateInput() {
+    let value = this.DueDate.replace(/\D/g, '');
+
+    if (value.length > 2) {
+      value = value.slice(0, 2) + '/' + value.slice(2);
+    }
+
+    if (value.length > 5) {
+      value = value.slice(0, 5) + '/' + value.slice(5, 9);
+    }
+
+    this.DueDate = value;
+  }
   constructor(private taskService: TaskService) { }
 
   createTask() {
@@ -31,15 +46,27 @@ export class NavbarComponent {
   }
 
   CreateTask() {
-    this.taskService.createTask(this.newTaskTitle, this.newTaskDescription, this.priority).subscribe({
+    const formattedDate = this.formatToISO(this.DueDate);
+    this.taskService.createTask(this.newTaskTitle, this.newTaskDescription, this.priority, formattedDate).subscribe({
       next: () => {
         this.newTaskTitle = '';
         this.newTaskDescription = '';
         this.priority = 'nenhuma';
+        this.DueDate = '';
         this.showCreateTaskModal.set(false);
       },
       error: (err) => console.error('Erro ao criar tarefa: ', err)
     });
+  }
 
+  private formatToISO(date: string): string | null {
+    if (!date) return null;
+
+    const parts = date.split('/');
+    if (parts.length !== 3) return null;
+
+    const [day, month, year] = parts;
+
+    return `${year}-${month}-${day}`;
   }
 }
