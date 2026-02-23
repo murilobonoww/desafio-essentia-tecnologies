@@ -18,7 +18,7 @@
   </div>
   </div>
 
-  <app-task-item *ngFor="let task of tasks(); trackBy: trackById" [task]="task">
+  <app-task-item *ngFor="let task of filteredTasks(); trackBy: trackById" [task]="task">
   </app-task-item>
 </div>
 

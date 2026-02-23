@@ -10,7 +10,7 @@
 
     <div id="container_nav_input_buscar_tarefas">
         <lucide-icon [img]="Search" color="gray"></lucide-icon>
-        <input type="text" placeholder="Buscar tarefas..." id="nav_input_buscar_tarefas" />
+        <input type="text" placeholder="Buscar tarefas..." id="nav_input_buscar_tarefas" [(ngModel)]="searchTerm" (input)="onSearch()" />
     </div>
 
     <button id="btn_nav_add_new_task" (click)="openCreateTaskModal()">+ Nova tarefa</button>

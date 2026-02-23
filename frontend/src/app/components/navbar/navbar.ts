@@ -22,6 +22,13 @@ export class NavbarComponent {
   priority: string = 'nenhuma';
   DueDate: string = '';
 
+  // NEW: pesquisa de tarefa por título
+  searchTerm: string = '';
+
+  onSearch() {
+    this.taskService.searchTerm.set(this.searchTerm);
+  }
+
   onDateInput() {
     let value = this.DueDate.replace(/\D/g, '');
 

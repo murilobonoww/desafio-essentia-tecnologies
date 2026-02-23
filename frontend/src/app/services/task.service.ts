@@ -18,6 +18,7 @@ export class TaskService {
 
   private _tasks = signal<Task[]>([]);
   readonly tasks = this._tasks.asReadonly();
+  searchTerm = signal('');
 
   constructor(private http: HttpClient) {}
 

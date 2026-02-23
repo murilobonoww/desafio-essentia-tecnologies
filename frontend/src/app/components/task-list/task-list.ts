@@ -18,6 +18,7 @@ export class TaskListComponent implements OnInit {
   showModalCreateTask = signal(false);
   pendingTasks = computed(() => this.tasks().filter(t => !t.completed).length);
   completedTasks = computed(() => this.tasks().filter(t => t.completed).length);
+  searchTerm = this.taskService.searchTerm;
 
   ngOnInit(): void {
     this.taskService.loadTasks();
@@ -34,4 +35,14 @@ export class TaskListComponent implements OnInit {
   closeModal() {
     this.showModalCreateTask.set(false);
   }
+
+  filteredTasks = computed(() => {
+    const term = this.searchTerm().toLowerCase().trim();
+    if (!term) return this.tasks();
+
+    return this.tasks().filter(task =>
+      task.title.toLowerCase().includes(term) ||
+      task.description?.toLowerCase().includes(term)
+    );
+  });
 }
