@@ -3,8 +3,8 @@
 <ng-container *ngIf="showModalCreateTask()">
 </ng-container>
 <div class="task-list">
-  <h1>Minhas tarefas</h1>
-  <p>{{ tasks().length }} tarefas</p>
+  <h1 style="margin: 0;">Minhas tarefas</h1>
+  <p style="margin-top: 0;">{{ tasks().length }} tarefas</p>
 
   <div style="display: flex; gap: 15px;">
   <div class="statistics_card">
@@ -18,7 +18,6 @@
   </div>
   </div>
 
-  <p>{{ completedTasks() }} tarefas concluídas</p>
   <app-task-item *ngFor="let task of tasks(); trackBy: trackById" [task]="task">
   </app-task-item>
 </div>

@@ -58,3 +58,8 @@
   color: #c3120e;
   border: 1px solid #ffa3a3;
 }
+
+.task_description {
+  font-size: 14px;
+  color: #555;
+}
