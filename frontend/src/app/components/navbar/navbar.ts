@@ -19,7 +19,8 @@ export class NavbarComponent {
   showCreateTaskModal = signal(false);
   newTaskTitle: string = '';
   newTaskDescription: string = '';
-   constructor(private taskService: TaskService) {}
+  priority: string = 'nenhuma';
+  constructor(private taskService: TaskService) { }
 
   createTask() {
     this.showCreateTaskModal.set(true);
@@ -30,10 +31,11 @@ export class NavbarComponent {
   }
 
   CreateTask() {
-    this.taskService.createTask(this.newTaskTitle, this.newTaskDescription).subscribe({
+    this.taskService.createTask(this.newTaskTitle, this.newTaskDescription, this.priority).subscribe({
       next: () => {
         this.newTaskTitle = '';
         this.newTaskDescription = '';
+        this.priority = 'nenhuma';
         this.showCreateTaskModal.set(false);
       },
       error: (err) => console.error('Erro ao criar tarefa: ', err)

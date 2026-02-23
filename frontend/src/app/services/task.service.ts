@@ -25,8 +25,8 @@ export class TaskService {
     this.http.get<Task[]>(this.API).subscribe(tasks => this._tasks.set(tasks));
   }
 
-  createTask(title: string, description: string = '') {
-    return this.http.post<Task>(this.API, { title, description }).pipe(tap(task => {
+  createTask(title: string, description: string = '', priority: string = 'nenhuma') {
+    return this.http.post<Task>(this.API, { title, description, priority }).pipe(tap(task => {
       this._tasks.update(tasks => [...tasks, task]);
     }));
   }
