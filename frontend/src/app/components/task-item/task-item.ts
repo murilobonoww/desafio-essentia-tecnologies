@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { Task, TaskService } from '../../services/task.service';
+import { CheckboxSplashComponent } from '../checkbox-splash/checkbox-splash';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 
@@ -7,9 +8,8 @@ import { CommonModule, DatePipe } from '@angular/common';
   selector: 'app-task-item',
   templateUrl: './task-item.html',
   styleUrls: ['./task-item.css'],
-
   standalone: true,
-  imports: [FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule, CheckboxSplashComponent]
 })
 export class TaskItemComponent {
   @Input() task!: Task;
