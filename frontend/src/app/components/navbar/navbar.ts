@@ -5,27 +5,43 @@ import { RouterModule } from '@angular/router';
 import { LucideAngularModule, ListChecks, Search, X, Funnel } from "lucide-angular";
 import { TaskService } from '../../services/task.service';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 @Component({
   selector: 'app-navbar',
   standalone: true,
   styleUrl: './navbar.css',
-  imports: [RouterModule, LucideAngularModule, CommonModule, FormsModule],
+  imports: [RouterModule, LucideAngularModule, CommonModule, FormsModule, MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule],
   templateUrl: './navbar.html',
 })
 export class NavbarComponent {
+  // imports de icones do lucide-angular
   readonly ListChecks = ListChecks;
   readonly Search = Search;
   readonly X = X;
   readonly Funnel = Funnel;
+  // ----------------------------------
   showCreateTaskModal = signal(false);
   showFilterModal = signal(false);
   newTaskTitle: string = '';
   newTaskDescription: string = '';
   priority: string = 'nenhuma';
-  DueDate: string = '';
+  selectedDate: Date | null = null;
 
   searchTerm: string = '';
   searchStatus: string = '';
+  bsInlineValue = new Date();
+  bsInlineRangeValue: Date[];
+  maxDate = new Date();
+
+  onDateSelected(date: Date) {
+    this.selectedDate = date;
+  }
 
   onSearch() {
     this.taskService.searchTerm.set(this.searchTerm);
@@ -36,35 +52,24 @@ export class NavbarComponent {
   }
 
   searchByPriority(priority: string) {
-  const current = this.taskService.searchPriority();
+    const current = this.taskService.searchPriority();
 
-  if (current.includes(priority)) {
-    // remove
-    this.taskService.searchPriority.set(
-      current.filter(p => p !== priority)
-    );
-  } else {
-    // adiciona
-    this.taskService.searchPriority.set(
-      [...current, priority]
-    );
-  }
-}
-
-  onDateInput() {
-    let value = this.DueDate.replace(/\D/g, '');
-
-    if (value.length > 2) {
-      value = value.slice(0, 2) + '/' + value.slice(2);
+    if (current.includes(priority)) {
+      // remove
+      this.taskService.searchPriority.set(
+        current.filter(p => p !== priority)
+      );
+    } else {
+      // adiciona
+      this.taskService.searchPriority.set(
+        [...current, priority]
+      );
     }
-
-    if (value.length > 5) {
-      value = value.slice(0, 5) + '/' + value.slice(5, 9);
-    }
-
-    this.DueDate = value;
   }
-  constructor(public taskService: TaskService) { }
+  constructor(public taskService: TaskService) {
+    this.maxDate.setDate(this.maxDate.getDate() + 7);
+    this.bsInlineRangeValue = [this.bsInlineValue, this.maxDate];
+  }
 
   openCreateTaskModal() {
     this.showCreateTaskModal.set(true);
@@ -83,27 +88,16 @@ export class NavbarComponent {
   }
 
   CreateTask() {
-    const formattedDate = this.formatToISO(this.DueDate);
+    const formattedDate = this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : null;
     this.taskService.createTask(this.newTaskTitle, this.newTaskDescription, this.priority, formattedDate).subscribe({
       next: () => {
         this.newTaskTitle = '';
         this.newTaskDescription = '';
         this.priority = 'nenhuma';
-        this.DueDate = '';
+        this.selectedDate = null;
         this.showCreateTaskModal.set(false);
       },
       error: (err) => console.error('Erro ao criar tarefa: ', err)
     });
-  }
-
-  private formatToISO(date: string): string | null {
-    if (!date) return null;
-
-    const parts = date.split('/');
-    if (parts.length !== 3) return null;
-
-    const [day, month, year] = parts;
-
-    return `${year}-${month}-${day}`;
   }
 }

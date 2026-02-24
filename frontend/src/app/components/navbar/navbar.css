@@ -125,6 +125,18 @@ nav {
   border-radius: 7px;
 }
 
+.matformfieldnotchedoutline .mdc-notched-outline{
+  display: none !important;
+}
+
+.matformfieldnotchedoutline{
+  display: none !important;
+}
+
+.mdc-notched-outline{
+  display: none !important;
+}
+
 /* From Uiverse.io by 3bdel3ziz-T */
 .select {
   width: fit-content;

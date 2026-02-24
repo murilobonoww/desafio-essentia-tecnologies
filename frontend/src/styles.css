@@ -11,3 +11,11 @@ button {
     background: transparent;
     cursor: pointer;
 }
+
+/*
+ Explicando decisão não usual: 
+ Esta classe abaixo modifica o date-picker importado do Angular materials. Pq aqui? Pq o Angular Materials encapsula (protege) o css dos elementos, apenas sendo acessível pelo css global!
+*/
+.mdc-notched-outline{
+  display: none !important;
+}
