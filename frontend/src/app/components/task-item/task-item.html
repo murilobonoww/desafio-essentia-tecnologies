@@ -55,11 +55,15 @@
       <input type="text" id="description" [(ngModel)]="input_description_value"
         placeholder="Ex: Finalizar relatório trimestral" />
 
-      <div class="input-box">
-        <label>Data de vencimento</label>
-        <input type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" [(ngModel)]="DueDate"
-          (input)="onDateInput()" />
-      </div>
+          <div class="input-box">
+                    <label>Data de vencimento</label>
+                    <mat-form-field appearance="outline" style="width: 200px;">
+                       <mat-label>{{task.due_date | date:'dd/MM/yyyy' : 'UTC' }}</mat-label>
+                        <input class="input_datepicker" matInput readonly [matDatepicker]="picker" [(ngModel)]="DueDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
 
       <p>Prioridade</p>
 

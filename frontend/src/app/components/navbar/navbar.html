@@ -46,6 +46,7 @@
                 <div class="input-box">
                     <label>Data de vencimento</label>
                     <mat-form-field appearance="outline" style="width: 200px;">
+                        <mat-label>Selecione</mat-label>
                         <input matInput readonly [matDatepicker]="picker" [(ngModel)]="selectedDate">
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
