@@ -19,6 +19,8 @@ export class TaskListComponent implements OnInit {
   pendingTasks = computed(() => this.tasks().filter(t => !t.completed).length);
   completedTasks = computed(() => this.tasks().filter(t => t.completed).length);
   searchTerm = this.taskService.searchTerm;
+  searchStatus = this.taskService.searchStatus;
+  searchPriority = this.taskService.searchPriority;
 
   ngOnInit(): void {
     this.taskService.loadTasks();
@@ -37,12 +39,33 @@ export class TaskListComponent implements OnInit {
   }
 
   filteredTasks = computed(() => {
-    const term = this.searchTerm().toLowerCase().trim();
-    if (!term) return this.tasks();
+  let tasks = this.tasks();
 
-    return this.tasks().filter(task =>
+  const term = this.searchTerm().toLowerCase().trim();
+  const status = this.searchStatus();
+  const priority = this.searchPriority();
+
+  if (term) {
+    tasks = tasks.filter(task =>
       task.title.toLowerCase().includes(term) ||
       task.description?.toLowerCase().includes(term)
     );
-  });
+  }
+
+  if (status === 'pendente') {
+    tasks = tasks.filter(task => !task.completed);
+  }
+
+  if (status === 'concluida') {
+    tasks = tasks.filter(task => task.completed);
+  }
+
+  if (priority.length > 0) {
+    tasks = tasks.filter(task =>
+      priority.includes(task.priority ?? '')
+    );
+  }
+
+  return tasks;
+});
 }

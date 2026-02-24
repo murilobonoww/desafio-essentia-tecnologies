@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, ListChecks, Search, X } from "lucide-angular";
+import { LucideAngularModule, ListChecks, Search, X, Funnel } from "lucide-angular";
 import { TaskService } from '../../services/task.service';
 
 @Component({
@@ -16,18 +16,40 @@ export class NavbarComponent {
   readonly ListChecks = ListChecks;
   readonly Search = Search;
   readonly X = X;
+  readonly Funnel = Funnel;
   showCreateTaskModal = signal(false);
+  showFilterModal = signal(false);
   newTaskTitle: string = '';
   newTaskDescription: string = '';
   priority: string = 'nenhuma';
   DueDate: string = '';
 
-  // NEW: pesquisa de tarefa por título
   searchTerm: string = '';
+  searchStatus: string = '';
 
   onSearch() {
     this.taskService.searchTerm.set(this.searchTerm);
   }
+
+  searchByStatus(status: string) {
+    this.taskService.searchStatus.set(status);
+  }
+
+  searchByPriority(priority: string) {
+  const current = this.taskService.searchPriority();
+
+  if (current.includes(priority)) {
+    // remove
+    this.taskService.searchPriority.set(
+      current.filter(p => p !== priority)
+    );
+  } else {
+    // adiciona
+    this.taskService.searchPriority.set(
+      [...current, priority]
+    );
+  }
+}
 
   onDateInput() {
     let value = this.DueDate.replace(/\D/g, '');
@@ -42,7 +64,7 @@ export class NavbarComponent {
 
     this.DueDate = value;
   }
-  constructor(private taskService: TaskService) { }
+  constructor(public taskService: TaskService) { }
 
   openCreateTaskModal() {
     this.showCreateTaskModal.set(true);
@@ -50,6 +72,14 @@ export class NavbarComponent {
 
   closeCreateTaskModal() {
     this.showCreateTaskModal.set(false);
+  }
+
+  openFilterModal() {
+    this.showFilterModal.set(true);
+  }
+
+  closeFilterModal() {
+    this.showFilterModal.set(false);
   }
 
   CreateTask() {

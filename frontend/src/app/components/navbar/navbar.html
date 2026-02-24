@@ -10,8 +10,13 @@
 
     <div id="container_nav_input_buscar_tarefas">
         <lucide-icon [img]="Search" color="gray"></lucide-icon>
-        <input type="text" placeholder="Buscar tarefas..." id="nav_input_buscar_tarefas" [(ngModel)]="searchTerm" (input)="onSearch()" />
+        <input type="text" placeholder="Buscar tarefas..." id="nav_input_buscar_tarefas" [(ngModel)]="searchTerm"
+            (input)="onSearch()" />
     </div>
+
+    <button (click)="openFilterModal()">
+        <lucide-icon [img]="Funnel" color="gray"></lucide-icon>
+    </button>
 
     <button id="btn_nav_add_new_task" (click)="openCreateTaskModal()">+ Nova tarefa</button>
 
@@ -84,6 +89,62 @@
                 <button (click)="closeCreateTaskModal()">Cancelar</button>
                 <button (click)="CreateTask()">Criar Tarefa</button>
             </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- MODAL DE FILTROS -->
+
+    <div *ngIf="showFilterModal();" class="bg_modal_create_task"></div>
+
+    <div *ngIf="showFilterModal();" class="modal_create_new_task" style="justify-content:start; padding-top: 10px;">
+        <div style="display: flex; width: 100%;">
+            <div
+                style="display: flex; align-items: center; width: 100%; padding-left: 30px; padding-right: 20px; border-bottom: 1px solid #ccc;">
+                <h1>Filtros avançados</h1>
+                <button (click)="closeFilterModal()"
+                    style="background-color: transparent; border: none; margin-left: auto; cursor: pointer;">
+                    <lucide-icon [img]="X" color="gray"></lucide-icon>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <p>Status</p>
+            <button class="status_filters {{taskService.searchStatus() === 'pendente' ? 'selected' : ''}}"
+                (click)="searchByStatus('pendente')">Pendente</button>
+            <button class="status_filters {{taskService.searchStatus() === 'concluida' ? 'selected' : ''}}"
+                (click)="searchByStatus('concluida')">Concluída</button>
+        </div>
+
+        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('alta')"
+            (click)="searchByPriority('alta')">
+            Alta
+        </button>
+
+        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('baixa')"
+            (click)="searchByPriority('baixa')">
+            Baixa
+        </button>
+
+        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('media')"
+            (click)="searchByPriority('media')">
+            Média
+        </button>
+
+        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('Urgente')"
+            (click)="searchByPriority('urgente')">
+            Urgente
+        </button>
+
+
+
+        <div class="create_task_and_cancel_button_container" style="display: flex; gap: 10px;">
+            <button (click)="closeFilterModal()">Cancelar</button>
+            <button (click)="CreateTask()">Criar Tarefa</button>
         </div>
     </div>
 </nav>
