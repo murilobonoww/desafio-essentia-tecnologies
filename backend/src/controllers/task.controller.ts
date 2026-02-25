@@ -1,15 +1,19 @@
 import type { Request, Response } from 'express'
 import { prisma } from '../prisma/client';
+import { AuthRequest } from '../middlewares/authMiddleware'
 
-export const createTask = async (req: Request, res: Response) => {
+export const createTask = async (req: AuthRequest, res: Response) => {
   const { title, due_date, priority, description } = req.body
+  const userId = req.user?.id
+  if (!userId) return res.status(401).json({ message: 'Usuário não autenticado' })
 
   const task = await prisma.task.create({
     data: {
       title,
       description: description ?? null,
       due_date: due_date ? new Date(due_date) : null,
-      priority: priority ?? null
+      priority: priority ?? null,
+      userId
     }
   })
 
@@ -55,7 +59,7 @@ export const updateTask = async (req: Request, res: Response) => {
     where: { id },
     data
   })
-  
+
   res.json(task)
 }
 
