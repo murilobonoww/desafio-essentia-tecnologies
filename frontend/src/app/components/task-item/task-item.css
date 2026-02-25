@@ -119,7 +119,7 @@
   color: gray;
 }
 
-.create_task_and_cancel_button_container button{
+.create_task_and_cancel_button_container button {
   padding: 15px 65px;
   border: none;
   border-radius: 7px;
@@ -143,6 +143,21 @@
   border-radius: 7px;
   background-color: #f3f4f6;
   color: gray;
+}
+
+.edit_task_btn {
+  background: linear-gradient(135deg,
+      #6b73ff 0%,
+      #000dff 100%);
+}
+
+.cancel_edit_task_btn {
+  background: #f3f4f6 !important;
+  color: #364153 !important;
+}
+
+.cancel_edit_task_btn:hover {
+  filter: brightness(0.9);
 }
 
 /* From Uiverse.io by 3bdel3ziz-T */

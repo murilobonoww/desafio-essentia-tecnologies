@@ -2,7 +2,7 @@
 </ng-container>
 <div class="task-list">
   <h1 style="margin: 0;">Minhas tarefas</h1>
-  <p style="margin-top: 0;">{{ tasks().length }} tarefas</p>
+  <p style="margin-top: 0;">{{ tasks().length }} {{ tasks().length > 1 ? 'tarefas' : 'tarefa' }}</p>
 
   <div style="display: flex; gap: 15px;">
   <div class="statistics_card">

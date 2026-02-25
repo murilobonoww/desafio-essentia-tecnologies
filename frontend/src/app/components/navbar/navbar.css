@@ -116,11 +116,10 @@ nav {
   cursor: pointer;
   background-color: orange;
   color: white;
+  
   font-size: 20px;
   width: 50%;
 }
-
-
 
 .matformfieldnotchedoutline .mdc-notched-outline {
   display: none !important;
@@ -216,7 +215,18 @@ nav {
   filter: brightness(0.9);
 }
 
-
+.selected {
+  background-color: #2a2f3b;
+  padding: 5px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+  position: relative;
+  z-index: 100000;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 /* From Uiverse.io by 3bdel3ziz-T */
 .select {
@@ -243,14 +253,15 @@ nav {
   color: gray;
 }
 
+
+
 .status_filters.selected {
   filter: brightness(0.9);
 }
 
 .priority_filter.selected {
   filter: brightness(0.9);
-  background: linear-gradient(
-      135deg,
+  background: linear-gradient(135deg,
       #6b73ff 0%,
       #000dff 100%);
   color: white;
