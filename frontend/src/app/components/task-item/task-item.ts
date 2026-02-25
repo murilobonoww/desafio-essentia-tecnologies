@@ -4,6 +4,7 @@ import { CheckboxSplashComponent } from '../checkbox-splash/checkbox-splash';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { LucideAngularModule, Calendar, EllipsisVertical, X } from "lucide-angular";
+import { ToastrService } from 'ngx-toastr';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -26,7 +27,7 @@ export class TaskItemComponent {
   @Output() taskUpdated = new EventEmitter<void>();
   @Output() taskDeleted = new EventEmitter<void>();
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private toastr: ToastrService) { }
   readonly Calendar = Calendar;
   readonly EllipsisVertical = EllipsisVertical;
   readonly X = X;
@@ -51,8 +52,15 @@ export class TaskItemComponent {
 
   deleteTask() {
     this.taskService.deleteTask(this.task.id).subscribe({
-      next: () => this.taskDeleted.emit(),
-      error: (err) => console.error('Erro ao deletar tarefa', err)
+      next: () => {
+        this.toastr.success('Tarefa deletada com sucesso!', 'Sucesso!')
+        this.taskDeleted.emit()
+      }
+      ,
+      error: (err) => {
+        this.toastr.error('Erro ao deletar tarefa', 'Erro')
+        console.error('Erro ao deletar tarefa', err)
+      }
     });
   }
 
@@ -75,23 +83,27 @@ export class TaskItemComponent {
     const formattedDate = this.DueDate ? this.DueDate.toISOString().split('T')[0] : null;
     this.taskService.updateTask(this.task.id, { title: this.input_title_value, description: this.input_description_value, priority: this.priority, due_date: formattedDate }).subscribe({
       next: () => {
+        this.toastr.success('Tarefa editada com sucesso!', 'Sucesso!');
         this.taskUpdated.emit();
         this.isEditing.set(false);
         this.DueDate = null
       },
-      error: (err) => console.error('Erro ao atualizar tarefa', err)
+      error: (err) => {
+        this.toastr.error('Erro ao atualizar tarefa', 'Erro')
+        console.error('Erro ao atualizar tarefa', err)
+      }
     })
   }
 
-private formatFromISO(date: string | null): string {
-  if (!date) return '';
+  private formatFromISO(date: string | null): string {
+    if (!date) return '';
 
-  const d = new Date(date);
+    const d = new Date(date);
 
-  const day = String(d.getUTCDate()).padStart(2, '0');
-  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-  const year = d.getUTCFullYear();
+    const day = String(d.getUTCDate()).padStart(2, '0');
+    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const year = d.getUTCFullYear();
 
-  return `${day}/${month}/${year}`;
-}
+    return `${day}/${month}/${year}`;
+  }
 }

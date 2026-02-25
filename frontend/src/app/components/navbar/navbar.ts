@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { LucideAngularModule, ListChecks, Search, X, Funnel, LogOut, RotateCcw } from "lucide-angular";
 import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -70,7 +71,7 @@ export class NavbarComponent {
       );
     }
   }
-  constructor(private auth: AuthService, public router: Router, public taskService: TaskService) {
+  constructor(private auth: AuthService, public router: Router, public taskService: TaskService,private toastr: ToastrService ) {
     this.maxDate.setDate(this.maxDate.getDate() + 7);
     this.bsInlineRangeValue = [this.bsInlineValue, this.maxDate];
   }
@@ -95,13 +96,17 @@ export class NavbarComponent {
     const formattedDate = this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : null;
     this.taskService.createTask(this.newTaskTitle, this.newTaskDescription, this.priority, formattedDate).subscribe({
       next: () => {
+        this.toastr.success('Tarefa criada com sucesso!', 'Sucesso!');
         this.newTaskTitle = '';
         this.newTaskDescription = '';
         this.priority = 'nenhuma';
         this.selectedDate = null;
         this.showCreateTaskModal.set(false);
       },
-      error: (err) => console.error('Erro ao criar tarefa: ', err)
+      error: (err) => {
+        this.toastr.error('Erro ao criar tarefa', 'Erro')
+        console.error('Erro ao criar tarefa: ', err)
+      }
     });
   }
 
