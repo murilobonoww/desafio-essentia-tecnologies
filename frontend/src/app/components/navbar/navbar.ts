@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule, ListChecks, Search, X, Funnel } from "lucide-angular";
 import { TaskService } from '../../services/task.service';
+import { Router } from '@angular/router';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -66,7 +68,7 @@ export class NavbarComponent {
       );
     }
   }
-  constructor(public taskService: TaskService) {
+  constructor(private auth: AuthService, public router: Router, public taskService: TaskService) {
     this.maxDate.setDate(this.maxDate.getDate() + 7);
     this.bsInlineRangeValue = [this.bsInlineValue, this.maxDate];
   }
@@ -99,5 +101,10 @@ export class NavbarComponent {
       },
       error: (err) => console.error('Erro ao criar tarefa: ', err)
     });
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }

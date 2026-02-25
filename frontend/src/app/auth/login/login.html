@@ -1,0 +1,28 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1>Bem-vindo!</h1>
+    <p>Entre com sua conta</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Email</label>
+        <input formControlName="email" type="email" placeholder="seu@email.com" />
+      </div>
+
+      <div class="form-group">
+        <label>Senha</label>
+        <input formControlName="senha" type="password" placeholder="••••••••" />
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Entrando...' : 'Login' }}
+      </button>
+    </form>
+
+    <p class="register-text">
+      Não tem conta? <a routerLink="/register">Cadastrar</a>
+    </p>
+  </div>
+</div>

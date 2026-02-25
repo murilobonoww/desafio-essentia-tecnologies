@@ -1,0 +1,111 @@
+/* Tela cheia, centrando o card */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+}
+
+/* Card do login */
+.login-card {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* Título */
+.login-card h1 {
+  margin-bottom: 8px;
+  font-size: 28px;
+  color: #111;
+}
+
+.login-card p {
+  margin-bottom: 24px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group input {
+  width: 92%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s;
+  background-color: rgb(245, 245, 245);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #6b73ff;
+  box-shadow: 0 0 8px rgba(107,115,255,0.3);
+}
+
+/* Erro */
+.error {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* Botão */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #6b73ff;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+button:hover:not(:disabled) {
+  background: #3039ec;
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* Texto de registro */
+.register-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.register-text a {
+  color: #6b73ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
