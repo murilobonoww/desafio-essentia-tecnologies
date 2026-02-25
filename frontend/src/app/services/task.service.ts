@@ -54,4 +54,10 @@ export class TaskService {
       })
     );
   }
+
+  clearFilters() {
+    this.searchTerm.set('');
+    this.searchStatus.set('');
+    this.searchPriority.set([]);
+  }
 }

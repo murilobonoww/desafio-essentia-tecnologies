@@ -3,13 +3,14 @@
         <lucide-icon [img]="LogOut" color="gray"></lucide-icon>
     </button>
 
+    <div style="display: flex; align-items: top; gap: 10px;">
     <div class="logo_navbar">
         <lucide-icon [img]="ListChecks" color="white"></lucide-icon>
     </div>
 
-    <div>
+    <div style="display: flex; align-items: center;">
         <h1 id="title_navbar">TaskMaster</h1>
-        <p id="subtitle_navbar">Gerencie suas tarefas com maestria</p>
+    </div>
     </div>
 
     <div id="container_nav_input_buscar_tarefas">
@@ -153,7 +154,7 @@
 
 
 
-            <button (click)="closeFilterModal()" class="clear_filters_btn">
+            <button (click)="clearFilters()" class="clear_filters_btn">
                 <lucide-icon [img]="RotateCcw"></lucide-icon>
                 Limpar filtros
             </button>

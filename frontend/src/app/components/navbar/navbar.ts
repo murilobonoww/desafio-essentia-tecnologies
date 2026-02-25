@@ -109,4 +109,9 @@ export class NavbarComponent {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+
+  clearFilters() {
+    this.taskService.clearFilters();
+    this.closeFilterModal();
+  }
 }
