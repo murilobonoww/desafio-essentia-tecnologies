@@ -19,12 +19,11 @@ nav {
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: orange;
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
   border-radius: 13px;
 }
 
 #nav_input_buscar_tarefas {
-
   padding: 13px;
   border: none;
   border-radius: 7px;
@@ -46,8 +45,8 @@ nav {
 }
 
 #btn_nav_add_new_task {
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
   color: white;
-  background: orange;
   border: none;
   padding: 10px 15px;
   border-radius: 7px;
@@ -108,7 +107,7 @@ nav {
   color: gray;
 }
 
-.create_task_and_cancel_button_container button{
+.create_task_and_cancel_button_container button {
   padding: 15px 65px;
   border: none;
   border-radius: 7px;
@@ -119,23 +118,103 @@ nav {
   width: 50%;
 }
 
+
+
+.matformfieldnotchedoutline .mdc-notched-outline {
+  display: none !important;
+}
+
+.matformfieldnotchedoutline {
+  display: none !important;
+}
+
+.mdc-notched-outline {
+  display: none !important;
+}
+
+.create_task_btn {
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+}
+
+.cancel_creation_task_btn {
+  background-color: #f3f4f6 !important;
+  color: #364153 !important;
+}
+
+.cancel_creation_task_btn:hover {
+  filter: brightness(0.9);
+}
+
+.clear_filters_btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f3f4f6 !important;
+  color: #364153 !important;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.clear_filters_btn:hover {
+  filter: brightness(0.9);
+}
+
 .status_filters {
-  background-color: #ccc;
+  background-color: #f3f4f6;
+  color: #364153;
   padding: 10px;
   border-radius: 7px;
 }
 
-.matformfieldnotchedoutline .mdc-notched-outline{
-  display: none !important;
+.status_filters:hover {
+  filter: brightness(0.9);
 }
 
-.matformfieldnotchedoutline{
-  display: none !important;
+.status_filter {
+  display: flex;
+  gap: 10px;
 }
 
-.mdc-notched-outline{
-  display: none !important;
+.priority_filters {
+  display: flex;
+  gap: 10px;
 }
+
+.priority_filter {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.priority_filter.baixa {
+  background-color: #f3f4f6;
+  color: #364153;
+}
+
+.priority_filter.media {
+  background-color: #fef9c2;
+  color: #b47a51;
+  border: 1px solid #ffe024;
+}
+
+.priority_filter.alta {
+  background-color: #ffedd4;
+  color: #cf5559;
+  border: 1px solid #ffb96c;
+}
+
+.priority_filter.urgente {
+  background-color: #ffe2e2;
+  color: #c3120e;
+  border: 1px solid #ffa3a3;
+}
+
+.priority_filter:hover {
+  filter: brightness(0.9);
+}
+
+
 
 /* From Uiverse.io by 3bdel3ziz-T */
 .select {

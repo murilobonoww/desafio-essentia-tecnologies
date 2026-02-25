@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 export interface Task {
   id: number;
@@ -23,19 +23,20 @@ export class TaskService {
   searchPriority = signal<string[]>([]);
 
   constructor(private http: HttpClient) {}
+  private readonly options = { withCredentials: true };
 
   loadTasks() {
-    this.http.get<Task[]>(this.API).subscribe(tasks => this._tasks.set(tasks));
+    this.http.get<Task[]>(this.API, this.options).subscribe(tasks => this._tasks.set(tasks));
   }
 
   createTask(title: string, description: string = '', priority: string = 'nenhuma', due_date: string | null = null) {
-    return this.http.post<Task>(this.API, { title, description, priority, due_date }).pipe(tap(task => {
+    return this.http.post<Task>(this.API, { title, description, priority, due_date }, this.options).pipe(tap(task => {
       this._tasks.update(tasks => [...tasks, task]);
     }));
   }
 
   updateTask(id: number, task: Partial<Task>) {
-    return this.http.put<Task>(`${this.API}/${id}`, task).pipe(
+    return this.http.put<Task>(`${this.API}/${id}`, task, this.options).pipe(
       tap(updated => {
         this._tasks.update(tasks =>
           tasks.map(t => t.id === id ? updated : t)
@@ -45,7 +46,7 @@ export class TaskService {
   }
 
   deleteTask(id: number) {
-    return this.http.delete<void>(`${this.API}/${id}`).pipe(
+    return this.http.delete<void>(`${this.API}/${id}`, this.options).pipe(
       tap(() => {
         this._tasks.update(tasks =>
           tasks.filter(t => t.id !== id)

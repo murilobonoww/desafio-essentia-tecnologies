@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { LucideAngularModule, ListChecks, Search, X, Funnel } from "lucide-angular";
+import { LucideAngularModule, ListChecks, Search, X, Funnel, LogOut, RotateCcw } from "lucide-angular";
 import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
 
@@ -27,6 +27,8 @@ export class NavbarComponent {
   readonly Search = Search;
   readonly X = X;
   readonly Funnel = Funnel;
+  readonly LogOut =LogOut;
+  readonly RotateCcw = RotateCcw;
   // ----------------------------------
   showCreateTaskModal = signal(false);
   showFilterModal = signal(false);

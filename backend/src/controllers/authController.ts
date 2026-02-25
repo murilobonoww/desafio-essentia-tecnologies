@@ -33,7 +33,7 @@ export const login = async (req: Request, res: Response) => {
     })
 
     res.cookie('token', token, cookieOptions)
-    return res.json({ message: 'Logado com sucesso' })
+    return res.json({ message: 'Logado com sucesso', token: token })
 }
 
 export const register = async (req: Request, res: Response) => {
@@ -67,3 +67,8 @@ export const register = async (req: Request, res: Response) => {
   res.cookie('token', token, cookieOptions)
   return res.status(201).json({ message: 'Cadastro realizado com sucesso' })
 }
+
+export const logout = (req: Request, res: Response) => {
+  res.clearCookie('token', { ...cookieOptions });
+  return res.json({ message: 'Logout realizado' });
+};

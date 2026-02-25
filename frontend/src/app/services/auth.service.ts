@@ -1,57 +1,72 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { signal } from '@angular/core';
+
+export const currentUser = signal<{ id: string; email: string; nome?: string } | null>(null);
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private api_url = 'http://localhost:3000/user';
 
-  private isAuthenticated = false;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-  // Adicione isso!
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  // Melhore isLoggedIn para usar o token real
+  // Não precisamos mais de getToken() nem localStorage para autenticação
+  // Vamos manter isLoggedIn() baseado no currentUser (mais confiável no SPA)
   isLoggedIn(): boolean {
-    const token = this.getToken();
-    if (!token) return false;
-
-    // Opcional: checa expiração (recomendado!)
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return Date.now() < payload.exp * 1000;
-    } catch {
-      return false;
-    }
+    return currentUser() !== null;
   }
 
-  login(email: string, senha: string) {
-    return this.http.post<{ token: string }>(`${this.api_url}/login`, { email, senha }).pipe(
-      tap((res: any) => {
-        localStorage.setItem('token', res.token);
-        this.isAuthenticated = true;
+  login(email: string, senha: string): Observable<any> {
+    return this.http.post(
+      `${this.api_url}/login`,
+      { email, senha },
+      { withCredentials: true }
+    ).pipe(
+      tap(() => {
+        // Login deu certo → cookie já foi setado pelo backend
+        // Vamos carregar o perfil imediatamente
       })
     );
   }
 
   register(nome: string, email: string, senha: string): Observable<any> {
-    return this.http.post<{ token: string }>(`${this.api_url}/sign-up`, { nome, email, senha }).pipe(
-      tap((res: any) => localStorage.setItem('token', res.token))
+    return this.http.post(
+      `${this.api_url}/sign-up`,
+      { nome, email, senha },
+      { withCredentials: true }
+    );
+    // Aqui também não precisa salvar token — cookie já vem no Set-Cookie
+  }
+
+  logout(): Observable<any> {
+    // Chame um endpoint de logout no backend que limpe o cookie
+    // Exemplo: res.clearCookie('token')
+    return this.http.post(
+      `${this.api_url}/logout`,
+      {},
+      { withCredentials: true }
+    ).pipe(
+      tap(() => {
+        currentUser.set(null);
+      })
     );
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.isAuthenticated = false;
+  // Método principal para carregar/atualizar o usuário logado
+  loadCurrentUser(): Observable<any> {
+    return this.http.get(
+      `${this.api_url}/me`,
+      { withCredentials: true }
+    ).pipe(
+      tap((user: any) => {
+        currentUser.set(user);
+      })
+    );
   }
 
-  //  getHeaders(): HttpHeaders {
-  //   const token = this.getToken();
-  //   return new HttpHeaders({
-  //     Authorization: token ? `Bearer ${token}` : ''
-  //   });
-  // }
+  // Opcional: método para usar em guards ou inicialização da app
+  getCurrentUser() {
+    return currentUser();
+  }
 }

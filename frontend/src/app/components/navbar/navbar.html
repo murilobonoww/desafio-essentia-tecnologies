@@ -1,8 +1,10 @@
 <nav>
-    <button (click)="logout()">Sair</button>
+    <button (click)="logout()">
+        <lucide-icon [img]="LogOut" color="gray"></lucide-icon>
+    </button>
 
     <div class="logo_navbar">
-        <lucide-icon [img]="ListChecks"></lucide-icon>
+        <lucide-icon [img]="ListChecks" color="white"></lucide-icon>
     </div>
 
     <div>
@@ -95,15 +97,11 @@
 
             </div>
             <div class="create_task_and_cancel_button_container" style="display: flex; gap: 10px;">
-                <button (click)="closeCreateTaskModal()">Cancelar</button>
-                <button (click)="CreateTask()">Criar Tarefa</button>
+                <button (click)="closeCreateTaskModal()" class="cancel_creation_task_btn">Cancelar</button>
+                <button (click)="CreateTask()" class="create_task_btn">Criar Tarefa</button>
             </div>
         </div>
     </div>
-
-
-
-
 
     <!-- MODAL DE FILTROS -->
 
@@ -120,40 +118,45 @@
                 </button>
             </div>
         </div>
-
-        <div>
+        <div style="display: flex; flex-direction: column; align-items: start; width: 100%; margin-left: 40px;">
             <p>Status</p>
-            <button class="status_filters {{taskService.searchStatus() === 'pendente' ? 'selected' : ''}}"
-                (click)="searchByStatus('pendente')">Pendente</button>
-            <button class="status_filters {{taskService.searchStatus() === 'concluida' ? 'selected' : ''}}"
-                (click)="searchByStatus('concluida')">Concluída</button>
-        </div>
+            <div class="status_filter">
+                <button class="status_filters {{taskService.searchStatus() === 'pendente' ? 'selected' : ''}}"
+                    (click)="searchByStatus('pendente')">Pendente</button>
+                <button class="status_filters {{taskService.searchStatus() === 'concluida' ? 'selected' : ''}}"
+                    (click)="searchByStatus('concluida')">Concluída</button>
+            </div>
 
-        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('alta')"
-            (click)="searchByPriority('alta')">
-            Alta
-        </button>
+            <p>Prioridade</p>
+            <div class="priority_filters">
+                <button class="priority_filter baixa" [class.selected]="taskService.searchPriority().includes('baixa')"
+                    (click)="searchByPriority('baixa')">
+                    Baixa
+                </button>
 
-        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('baixa')"
-            (click)="searchByPriority('baixa')">
-            Baixa
-        </button>
+                <button class="priority_filter media" [class.selected]="taskService.searchPriority().includes('media')"
+                    (click)="searchByPriority('media')">
+                    Média
+                </button>
 
-        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('media')"
-            (click)="searchByPriority('media')">
-            Média
-        </button>
+                <button class="priority_filter alta" [class.selected]="taskService.searchPriority().includes('alta')"
+                    (click)="searchByPriority('alta')">
+                    Alta
+                </button>
 
-        <button class="priority_filters" [class.selected]="taskService.searchPriority().includes('urgente')"
-            (click)="searchByPriority('urgente')">
-            Urgente
-        </button>
+                <button class="priority_filter urgente" [class.selected]="taskService.searchPriority().includes('urgente')"
+                    (click)="searchByPriority('urgente')">
+                    Urgente
+                </button>
+            </div>
 
 
 
-        <div class="create_task_and_cancel_button_container" style="display: flex; gap: 10px;">
-            <button (click)="closeFilterModal()">Cancelar</button>
-            <button (click)="CreateTask()">Criar Tarefa</button>
+
+            <button (click)="closeFilterModal()" class="clear_filters_btn">
+                <lucide-icon [img]="RotateCcw"></lucide-icon>
+                Limpar filtros
+            </button>
         </div>
     </div>
 </nav>

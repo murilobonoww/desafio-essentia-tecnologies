@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { authMiddleware } from '../middlewares/authMiddleware'
 import {
   createTask,
   getTasks,
@@ -8,9 +9,9 @@ import {
 
 const router = Router()
 
-router.post('/', createTask)
-router.get('/', getTasks)
-router.put('/:id', updateTask)
-router.delete('/:id', deleteTask)
+router.post('/', authMiddleware, createTask)
+router.get('/', authMiddleware,  getTasks)
+router.put('/:id', authMiddleware,  updateTask)
+router.delete('/:id', authMiddleware, deleteTask)
 
 export default router

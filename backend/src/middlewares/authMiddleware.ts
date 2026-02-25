@@ -10,18 +10,13 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization
+  const token = req.cookies?.token
 
-  if (!authHeader) {
+  if (!token) {
     return res.status(401).json({ message: 'Token não fornecido' })
   }
 
-  const [, token] = authHeader.split(' ')
-
   try {
-    if (!token) {
-        return res.status(401).json({ message: 'Token inválido' })
-    }
     const decoded = verifyToken(token)
     req.user = decoded
     next()
